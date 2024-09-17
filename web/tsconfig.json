@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ESNext",
+    "outDir": "dist",
+    "noEmit": false,
+    "allowJs": true,
+    "checkJs": true,
+    "noImplicitAny": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "types": ["jest", "node"]
+  },
+  "include": ["src/**/*", "*.ts", "*.tsx", "src/utils", "styles/typoghraphy.js"],
+  "exclude": ["e2e", "mocks", "node_modules", "**/*.spec.ts", "assets", "dist", "./webpack.dev.js", "./webpack.common.js", "./webpack.prod.js"]
+}

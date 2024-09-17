@@ -1,0 +1,14 @@
+# Ignore artifacts:
+build
+dist
+coverage
+node_modules
+.env
+Dockerfile
+**config
+**.json
+webpack**
+**lock
+
+# Ignore all HTML files:
+**/*.html
