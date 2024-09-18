@@ -2,19 +2,21 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import { InputLabel, InputBase } from "@mui/material";
 
+import Box from "@mui/material/Box";
+
 interface InputTextProps {
   text: String;
+  direction: "Row" | "Column";
 }
 
-export const InputText: React.FC<InputTextProps> = ({ text }) => {
+export const InputText: React.FC<InputTextProps> = ({
+  text,
+  direction,
+}) => {
   const Button = styled(InputBase)(({ theme }) => ({
-    "label + &": {
-      marginTop: theme.spacing(2),
-    },
     "& .MuiInputBase-input": {
       color: theme.palette.text.primary,
       boxSizing: "border-box",
-      position: "relative",
       backgroundColor: theme.palette.background.paper,
       border: "1px solid",
       borderColor: theme.palette.primary.main,
@@ -28,7 +30,7 @@ export const InputText: React.FC<InputTextProps> = ({ text }) => {
         "box-shadow",
       ]),
       "&:focus": {
-        boxShadow: "#FFF",
+        boxShadow: theme.palette.common.white,
         borderColor: theme.palette.primary.main,
       },
     },
@@ -39,10 +41,27 @@ export const InputText: React.FC<InputTextProps> = ({ text }) => {
     fontSize: "1rem",
   }));
 
+  const boxStyle = {
+    display: "flex",
+    flexDirection: "",
+    columnGap: "",
+    rowGap: "",
+    alignItems: "",
+  };
+
+  if (direction == "Row") {
+    boxStyle.flexDirection = "row";
+    boxStyle.columnGap = "12px";
+    boxStyle.alignItems = "center";
+  } else {
+    boxStyle.flexDirection = "column";
+    boxStyle.rowGap = "12px";
+  }
+
   return (
-    <>
+    <Box component="div" sx={boxStyle}>
       <Label> {text} </Label>
       <Button />
-    </>
+    </Box>
   );
 };

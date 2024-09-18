@@ -1,4 +1,3 @@
-import { Chip, styled } from "@mui/material";
 import React from "react";
 import { BlueCardChip } from "./BlueCardChip";
 import { RedwineCardChip } from "./RedwineCardChip";

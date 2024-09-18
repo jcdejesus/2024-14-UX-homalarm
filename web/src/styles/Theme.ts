@@ -19,6 +19,9 @@ export const theme = createTheme({
     error: {
       main: "#DC2F2F",
     },
+    success: {
+      main: "#2C786C",
+    },
     grey: {
       A700: "#525252",
       A400: "#D9D9D9",

@@ -5,6 +5,7 @@ import { GreenSwitch } from "./components/GreenSwitch/GreenSwitch";
 import { InputText } from "./components/Input/InputText";
 import { Button } from "./components/Button/Button";
 import { CardChip } from "./components/CardChip/CardChip";
+import { ToastBar } from "./components/ToastBar/ToastBar";
 
 const App: React.FC = () => {
   return (
@@ -16,7 +17,8 @@ const App: React.FC = () => {
 
       {/* Algunos componentes  */}
       <GreenSwitch />
-      <InputText text="Usuario" />
+      <InputText direction="Column" text="Usuario" />
+      <InputText direction="Column" text="Usuario" />
       <Button texture="Blue" text="Aceptar" />
       <Button texture="Gray" text="Cancelar" />
       <CardChip text="L" />
@@ -24,6 +26,7 @@ const App: React.FC = () => {
       <CardChip text="M" texture="Redwine" />
       <CardChip text="J" texture="Redwine" />
       <CardChip text="V" texture="Redwine" />
+      <ToastBar text="Su alarma ha sido creada" texture="Success" />
     </ThemeProvider>
   );
 };
