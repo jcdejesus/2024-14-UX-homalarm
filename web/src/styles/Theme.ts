@@ -21,7 +21,7 @@ export const theme = createTheme({
     },
     grey: {
       A700: "#525252",
-      A400: "#D9D9D9", // Used for buttons
+      A400: "#D9D9D9",
     },
     text: {
       primary: "#3D3D3D",
