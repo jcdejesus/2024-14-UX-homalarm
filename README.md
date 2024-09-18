@@ -1,5 +1,10 @@
 # HOMALARM
-___
+
+### Estructura
+- Web
+- Mobile
+- README.md
+
 ### Despliegue y uso
 
 ### Autores:
