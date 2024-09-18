@@ -3,6 +3,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./styles/Theme";
 import { GreenSwitch } from "./components/GreenSwitch/GreenSwitch";
 import { InputText } from "./components/Input/InputText";
+import { Button } from "./components/Button/Button";
+import { CardChip } from "./components/CardChip/CardChip";
 
 const App: React.FC = () => {
   return (
@@ -15,6 +17,13 @@ const App: React.FC = () => {
       {/* Algunos componentes  */}
       <GreenSwitch />
       <InputText text="Usuario" />
+      <Button texture="Blue" text="Aceptar" />
+      <Button texture="Gray" text="Cancelar" />
+      <CardChip text="L" />
+      <CardChip text="M" />
+      <CardChip text="M" texture="Redwine" />
+      <CardChip text="J" texture="Redwine" />
+      <CardChip text="V" texture="Redwine" />
     </ThemeProvider>
   );
 };
