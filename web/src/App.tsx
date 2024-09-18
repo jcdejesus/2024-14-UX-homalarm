@@ -6,10 +6,12 @@ import { InputText } from "./components/Input/InputText";
 import { Button } from "./components/Button/Button";
 import { CardChip } from "./components/CardChip/CardChip";
 import { ToastBar } from "./components/ToastBar/ToastBar";
+import { CssBaseline } from "@mui/material";
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       {/*
        * TODO: Aqui va el codigo
        *
