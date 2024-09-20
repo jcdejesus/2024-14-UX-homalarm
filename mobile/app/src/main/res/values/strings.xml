@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Homalarm</string>
+    <string name="top_bar_title">HOMALARM</string>
 </resources>

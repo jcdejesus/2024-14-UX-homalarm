@@ -15,8 +15,10 @@ var Green400 = Color(0xFF6CB5A8)
 
 var Redwine500 = Color(0xFF67113F)
 
-var Gray500 = Color(0xFFD9D9D9)
-var Gray400 = Color(0xFF5C636E)
+var Gray500 = Color(0xFF5C636E)
+var Gray400 = Color(0xFFCACACA)
+var Gray300 = Color(0xFFD9D9D9)
+var Gray200 = Color(0xFFD3D6DB)
 
 var Red500 = Color(0xFFDC2F2F)
 

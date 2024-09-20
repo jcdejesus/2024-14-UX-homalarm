@@ -29,6 +29,12 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Blue300,
     secondary = Redwine500,
     onSecondary = White500,
+    tertiary = Green500,
+    onTertiary = Green400,
+    tertiaryContainer = Gray300,
+    outline = Gray200
+
+
 
 
     /* Other default colors to override
@@ -45,7 +51,6 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun HomalarmTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {

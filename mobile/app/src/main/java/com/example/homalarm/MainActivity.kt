@@ -26,20 +26,27 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.homalarm.ui.theme.HomalarmTheme
 import com.example.homalarm.utils.Screen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
@@ -77,6 +84,8 @@ fun ScaffoldBase(){
         Screen.Recibidas,
     )
 
+    val navController = rememberNavController()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -85,7 +94,15 @@ fun ScaffoldBase(){
                     titleContentColor = MaterialTheme.colorScheme.onPrimary,
                 ),
                 title = {
-                    Text("Top app bar")
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination?.route
+                    val title = when(currentDestination) {
+                        Screen.EditarAlarmaCompartida.route -> Screen.EditarAlarmaCompartida.label
+                        Screen.EditarAlarma.route -> Screen.EditarAlarma.label
+                        Screen.EditarAlarmaRecibida.route -> Screen.EditarAlarmaRecibida.label
+                        else -> stringResource(R.string.top_bar_title)
+                    }
+                    title?.let { Text(it,modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, style = MaterialTheme.typography.titleMedium) }
                 }
             )
         },
@@ -120,8 +137,8 @@ fun ScaffoldBase(){
                                         contentDescription = screen.contentDescription,
                                         contentScale = ContentScale.FillHeight,
                                         modifier = Modifier
-                                            .width(24.dp)
-                                            .height(24.dp)
+                                            .width(IconSizes.bottomTab)
+                                            .height(IconSizes.bottomTab)
                                     )
                                 }
                             )
@@ -131,7 +148,6 @@ fun ScaffoldBase(){
         }
     ){
         innerPadding ->
-        val navController = rememberNavController()
         // A surface container using the 'background' color from the theme
         NavHost(navController = navController, startDestination = Screen.Creadas.route) {
             composable(Screen.Creadas.route){

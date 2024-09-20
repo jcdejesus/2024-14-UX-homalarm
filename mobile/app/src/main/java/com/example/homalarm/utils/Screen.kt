@@ -7,7 +7,10 @@ sealed class Screen(val route: String, val label: String, val icon: Int?, val co
     data object Creadas : Screen("AlarmasCreadas", "Creadas", R.drawable.alarm, "Alarmas Creadas")
     data object Enviadas : Screen("AlarmasEnviadas", "Enviadas", R.drawable.sent, "Alarmas Enviadas")
     data object Recibidas : Screen("AlarmasRecibidas", "Recibidas", R.drawable.received, "Alarmas Recibidas")
-
+    data object CrearAlarma : Screen("CrearAlarma", "Crear Alarma", R.drawable.received, "Crear Alarma")
+    data object EditarAlarma : Screen("EditarAlarma", "Editar Alarma", R.drawable.received, "Editar Alarma")
+    data object EditarAlarmaCompartida : Screen("EditarAlarmaCompartida", "Editar Alarma Compartida", R.drawable.received, "Editar Alarma Compartida")
+    data object EditarAlarmaRecibida : Screen("EditarAlarmaRecibida", "Editar Alarma Recibida", R.drawable.received, "Editar Alarma Recibida")
 
     /* data object CollectorDetail : Screen("collectors/{collectorId}", "ColeccionistaDetalle", null, null)
     data object ArtistDetail : Screen("artists/{artistId}", "ArtistaDetalle", null, null)
