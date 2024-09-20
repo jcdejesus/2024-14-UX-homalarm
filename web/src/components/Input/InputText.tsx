@@ -38,6 +38,7 @@ export const InputText: React.FC<InputTextProps> = ({
 
   const Label = styled(InputLabel)(({ theme }) => ({
     color: theme.palette.text.primary,
+    // fontSize: "1.375rem", TODO: check this as this is Figma value
     fontSize: "1rem",
   }));
 
