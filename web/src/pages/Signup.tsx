@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { InputText } from '../components/Input/InputText';
 import { BlueButtonText } from '../components/Button/BlueButton';
+import { useTheme } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
 export const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const theme = useTheme();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -14,7 +17,14 @@ export const Signup: React.FC = () => {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        width: '100vw',
+        height: '100vh',
+        padding: theme.spacing(2),
+        background: theme.palette.background.default,
+      }}
+    >
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -25,6 +35,6 @@ export const Signup: React.FC = () => {
         </div>
         <BlueButtonText text="Iniciar"></BlueButtonText>
       </form>
-    </div>
+    </Box>
   );
 };
