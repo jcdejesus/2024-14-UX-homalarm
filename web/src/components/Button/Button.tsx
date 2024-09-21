@@ -1,16 +1,16 @@
-import React from "react";
-import { BlueButtonText } from "./BlueButton";
-import { GrayButtonText } from "./GrayButton";
+import React from 'react';
+import { BlueButtonText } from './BlueButton';
+import { GrayButtonText } from './GrayButton';
 
-type Texture = "Blue" | "Gray";
+type Texture = 'Blue' | 'Gray';
 
 interface ButtonProps {
-  text?: String;
+  text?: string;
   texture?: Texture;
 }
 
 export const Button: React.FC<ButtonProps> = ({ text, texture }) => {
-  if (texture == "Gray") {
+  if (texture == 'Gray') {
     return <GrayButtonText text={text} />;
   }
 

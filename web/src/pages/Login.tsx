@@ -3,12 +3,14 @@ import { InputText } from '../components/Input/InputText';
 import { BlueButtonText } from '../components/Button/BlueButton';
 import { Box, Link, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -35,17 +37,29 @@ export const Login: React.FC = () => {
         alt="Descripción de la imagen"
         style={{ width: '450px', height: '450px' }}
       />
-      <form onSubmit={handleSubmit}>
-        <InputText direction="Column" text="Usuario" />
-        <InputText direction="Column" text="Contraseña" />
-      </form>
       <Box
         sx={{
+          minWidth: '350px',
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          <InputText
+            direction="Column"
+            text="Usuario"
+            color={theme.palette.secondary.contrastText}
+          />
+          <InputText
+            direction="Column"
+            text="Contraseña"
+            color={theme.palette.secondary.contrastText}
+          />
+        </form>
+      </Box>
+      <Box
+        sx={{
+          minWidth: '350px',
           display: 'flex',
           justifyContent: 'space-between',
-          // TODO: check how to increase width to inputs
-          // width: '23%', 
-          padding: theme.spacing(2),
         }}
       >
         <Box
@@ -61,7 +75,9 @@ export const Login: React.FC = () => {
               color: theme.palette.primary.contrastText,
             }}
           >
-            <Typography fontWeight="bold">Olvidó contraseña?</Typography>
+            <Typography variant="caption" fontWeight="bold">
+              Olvidó contraseña?
+            </Typography>
           </Link>
 
           <Link
@@ -70,10 +86,12 @@ export const Login: React.FC = () => {
               color: theme.palette.primary.contrastText,
             }}
           >
-            <Typography fontWeight="bold">Crear cuenta</Typography>
+            <Typography variant="caption" fontWeight="bold">
+              Crear cuenta
+            </Typography>
           </Link>
         </Box>
-        <BlueButtonText text="Iniciar"></BlueButtonText>
+        <BlueButtonText text="Iniciar" onClick={() => navigate('/home')} />
       </Box>
     </Box>
   );
