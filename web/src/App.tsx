@@ -4,7 +4,7 @@ import { theme } from './styles/Theme';
 import { CssBaseline } from '@mui/material';
 import { Login } from './pages/Login';
 import { Route, Routes } from 'react-router-dom';
-import { Home } from './pages/Home';
+import { Home } from './pages/Home/Home';
 import { Signup } from './pages/Signup';
 
 const App: React.FC = () => {

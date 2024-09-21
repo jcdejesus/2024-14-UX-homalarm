@@ -2,7 +2,7 @@ import React from "react";
 import { BlueCardChip } from "./BlueCardChip";
 import { RedwineCardChip } from "./RedwineCardChip";
 
-type Texture = "Redwine" | "Blue";
+export type Texture = "Redwine" | "Blue";
 
 interface CardChipProps {
   text: string;
