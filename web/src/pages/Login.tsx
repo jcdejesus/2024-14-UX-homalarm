@@ -91,6 +91,9 @@ export const Login: React.FC = () => {
               padding: 0,
               cursor: 'pointer',
               font: 'inherit',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
             }}
           >
             <Typography variant="caption" fontWeight="bold">
