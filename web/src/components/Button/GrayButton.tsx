@@ -4,11 +4,13 @@ import { styled } from '@mui/material/styles';
 
 interface GrayButtonTextProps {
   text: string;
+  onClick?: () => void;
   icon?: React.ReactNode;
 }
 
 export const GrayButtonText: React.FC<GrayButtonTextProps> = ({
   text,
+  onClick,
   icon,
 }) => {
   const ButtonText = styled(Button)(({ theme }) => ({
@@ -19,7 +21,12 @@ export const GrayButtonText: React.FC<GrayButtonTextProps> = ({
     },
   }));
   return (
-    <ButtonText variant="contained" color="primary" startIcon={icon}>
+    <ButtonText
+      variant="contained"
+      color="primary"
+      onClick={onClick}
+      startIcon={icon}
+    >
       {text}
     </ButtonText>
   );

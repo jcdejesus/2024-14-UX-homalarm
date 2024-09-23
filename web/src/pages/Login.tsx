@@ -5,10 +5,21 @@ import { Box, Link, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { CustomDialog } from '../components/Dialog/Dialog';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -70,9 +81,16 @@ export const Login: React.FC = () => {
           }}
         >
           <Link
-            href="/forgot-password"
+            component="button"
+            onClick={handleDialogOpen}
             sx={{
               color: theme.palette.primary.contrastText,
+              textDecoration: 'none',
+              background: 'none',
+              border: 'none',
+              padding: 0,
+              cursor: 'pointer',
+              font: 'inherit',
             }}
           >
             <Typography variant="caption" fontWeight="bold">
@@ -93,6 +111,20 @@ export const Login: React.FC = () => {
         </Box>
         <BlueButtonText text="Iniciar" onClick={() => navigate('/home')} />
       </Box>
+
+      <CustomDialog
+        title="Recuperar Contraseña"
+        open={dialogOpen}
+        setOpen={setDialogOpen}
+        content={
+          <InputText
+            direction="Column"
+            text="Correo"
+            color={theme.palette.common.black}
+          />
+        }
+        actionText="Enviar"
+      />
     </Box>
   );
 };

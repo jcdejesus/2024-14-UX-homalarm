@@ -24,7 +24,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
   return (
     <Card
       sx={{
-        margin: theme.spacing(2),
+        margin: theme.spacing(4),
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.secondary.contrastText,
         borderRadius: theme.shape.borderRadius, // Add rounded corners

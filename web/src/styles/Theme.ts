@@ -29,6 +29,7 @@ export const theme = createTheme({
     text: {
       primary: "#3D3D3D", // Dark Grey
       secondary: "#525252", // Grey for texts
+      
     },
     background:{
       default: "linear-gradient(180deg, #113F67 0%, #227DCD 61%)",
