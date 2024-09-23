@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -12,6 +12,7 @@ interface CustomDialogProps {
   title: string;
   open: boolean;
   setOpen: (open: boolean) => void;
+  handleSubmit: () => void
   content: React.ReactNode;
   actionText: string;
 }
@@ -19,13 +20,11 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
   title,
   open,
   setOpen,
+  handleSubmit,
   content,
   actionText,
 }) => {
   const handleClose = () => {
-    setOpen(false);
-  };
-  const handleSubmit = () => {
     setOpen(false);
   };
 

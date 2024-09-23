@@ -1,23 +1,46 @@
 import React from 'react';
 import { InputText } from '../components/Input/InputText';
 import { BlueButtonText } from '../components/Button/BlueButton';
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Link, SnackbarCloseReason, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { CustomDialog } from '../components/Dialog/Dialog';
+import { Texture, ToastBar } from '../components/ToastBar/ToastBar';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [snackOpen, setSnackOpen] = React.useState(false);
+  const [snacktype, setSnackType] = React.useState<{
+    text: string;
+    texture: Texture;
+  }>({ text: 'Cuenta no encontrada', texture: 'Error' });
 
   const handleDialogOpen = () => {
     setDialogOpen(true);
   };
 
-  const handleDialogClose = () => {
+  const handleDialogSubmit = () => {
     setDialogOpen(false);
+    setSnackOpen(true);
+    setSnackType(
+      Math.random() > 0.5
+        ? { text: 'Cuenta no encontrada', texture: 'Error' }
+        : { text: 'Correo enviado', texture: 'Success' }
+    );
+  };
+
+  const handleSnackClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackOpen(false);
   };
 
   const theme = useTheme();
@@ -119,6 +142,7 @@ export const Login: React.FC = () => {
         title="Recuperar Contraseña"
         open={dialogOpen}
         setOpen={setDialogOpen}
+        handleSubmit={handleDialogSubmit}
         content={
           <InputText
             direction="Column"
@@ -128,6 +152,12 @@ export const Login: React.FC = () => {
         }
         actionText="Enviar"
       />
+      <ToastBar
+        text={snacktype.text}
+        texture={snacktype.texture}
+        open={snackOpen}
+        onClose={handleSnackClose}
+      ></ToastBar>
     </Box>
   );
 };
