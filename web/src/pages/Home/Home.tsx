@@ -5,23 +5,26 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import AlarmIcon from '@mui/icons-material/Alarm';
 import { theme } from '../../styles/Theme';
 import { BlueDrawer } from '../../components/Drawer/Drawer';
-import { AlarmComponent } from './components/AlarmComponent';
-import { GroupComponent } from './components/GroupComponent';
+import { AlarmComponent } from './components/alarms/AlarmComponent';
+import { GroupComponent } from './components/groups/GroupComponent';
 
 const drawerList = [
   {
+    id: '1',
     text: 'Alarmas',
     icon: <AlarmIcon sx={{ color: theme.palette.secondary.contrastText }} />,
   },
   {
+    id: '2',
     text: 'Grupos',
     icon: <GroupsIcon sx={{ color: theme.palette.secondary.contrastText }} />,
   },
 ];
 
+const drawerWidth = 327;
 export const Home: React.FC = () => {
   const theme = useTheme();
-  const [selectedComponent, setSelectedComponent] = useState<string>('Alarmas');
+  const [selectedComponent, setSelectedComponent] = useState<string>('1');
 
   const handleDrawerItemClick = (text: string) => {
     setSelectedComponent(text);
@@ -37,12 +40,13 @@ export const Home: React.FC = () => {
       }}
     >
       <BlueDrawer
+        id="home-sidebar"
         drawerList={drawerList}
         onItemClick={handleDrawerItemClick}
       ></BlueDrawer>
-      <Box sx={{ marginLeft: '327px' }}>
-        {selectedComponent === 'Alarmas' && <AlarmComponent />}
-        {selectedComponent === 'Grupos' && <GroupComponent />}
+      <Box sx={{ marginLeft: `${drawerWidth}px` }}>
+        {selectedComponent === '1' && <AlarmComponent />}
+        {selectedComponent === '2' && <GroupComponent />}
       </Box>
     </Box>
   );

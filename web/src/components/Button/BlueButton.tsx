@@ -5,11 +5,13 @@ import { styled } from '@mui/material/styles';
 interface BlueButtonTextProps {
   text?: string;
   onClick?: () => void;
+  icon?: React.ReactNode;
 }
 
 export const BlueButtonText: React.FC<BlueButtonTextProps> = ({
   text,
   onClick,
+  icon,
 }) => {
   const ButtonText = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
@@ -20,7 +22,12 @@ export const BlueButtonText: React.FC<BlueButtonTextProps> = ({
     },
   }));
   return (
-    <ButtonText variant="contained" color="primary" onClick={onClick}>
+    <ButtonText
+      variant="contained"
+      color="primary"
+      onClick={onClick}
+      startIcon={icon}
+    >
       {text}
     </ButtonText>
   );

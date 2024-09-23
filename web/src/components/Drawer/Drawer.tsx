@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Drawer,
   List,
   ListItem,
@@ -12,33 +13,59 @@ import React from 'react';
 import { theme } from '../../styles/Theme';
 
 interface DrawerProps {
+  id: string;
   drawerList: {
+    id?: string;
     text: string;
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
   }[];
+  buttonAction?: {
+    text: string;
+    onButtonClick: () => void;
+  };
   onItemClick: (text: string) => void;
 }
 
 const DrawerList: React.FC<{
-  drawerList: { text: string; icon: React.ReactNode }[];
+  drawerList: { id?: string; text: string; icon?: React.ReactNode }[];
   onItemClick: (text: string) => void;
-}> = ({ drawerList, onItemClick }) => (
+  buttonAction?: {
+    text: string;
+    onButtonClick: () => void;
+  };
+}> = ({ drawerList, onItemClick, buttonAction }) => (
   <Box role="presentation">
     <List
       sx={{
         color: theme.palette.secondary.contrastText,
       }}
     >
-      {drawerList.map((item) => (
-        <ListItem key={item.text} disablePadding>
-          <ListItemButton onClick={() => onItemClick(item.text)}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
+      {buttonAction && (
+        <ListItem key="Create" disablePadding>
+          <ListItemButton onClick={buttonAction.onButtonClick}>
             <ListItemText
-              primary={item.text}
+              primary={buttonAction.text}
               primaryTypographyProps={{ fontWeight: 'bold' }}
             />
           </ListItemButton>
         </ListItem>
+      )}
+      <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
+      {drawerList.map((item) => (
+        <>
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton onClick={() => onItemClick(item.id)}>
+              {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{ fontWeight: 'bold' }}
+              />
+            </ListItemButton>
+          </ListItem>
+          {!item.icon && (
+            <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
+          )}
+        </>
       ))}
     </List>
   </Box>
@@ -47,16 +74,19 @@ const DrawerList: React.FC<{
 export const BlueDrawer: React.FC<DrawerProps> = (props) => {
   const StyledDrawer = styled(Drawer)({
     '& .MuiDrawer-paper': {
-      width: 327,
-      backgroundColor: '#113F67',
+      width: props.id === 'home-sidebar' ? '327px' : '249px',
+      marginLeft: props.id !== 'home-sidebar' ? '327px' : '',
+      backgroundColor:
+        props.id === 'home-sidebar' ? '#113F67' : 'rgba(17, 63, 103, 0.8)',
     },
   });
 
   return (
-    <StyledDrawer variant="permanent" anchor="left">
+    <StyledDrawer id={props.id} variant="permanent" anchor="left">
       <DrawerList
         drawerList={props.drawerList}
         onItemClick={props.onItemClick}
+        buttonAction={props.buttonAction}
       />
     </StyledDrawer>
   );

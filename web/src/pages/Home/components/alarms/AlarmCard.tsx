@@ -10,9 +10,9 @@ import {
   Tooltip,
 } from '@mui/material';
 import ShareIcon from '@mui/icons-material/Share';
-import { CardChip, Texture } from '../../../components/CardChip/CardChip';
-import { GreenSwitch } from '../../../components/GreenSwitch/GreenSwitch';
-import { theme } from '../../../styles/Theme';
+import { CardChip, Texture } from '../../../../components/CardChip/CardChip';
+import { GreenSwitch } from '../../../../components/GreenSwitch/GreenSwitch';
+import { theme } from '../../../../styles/Theme';
 
 interface Alarm {
   id: number;
