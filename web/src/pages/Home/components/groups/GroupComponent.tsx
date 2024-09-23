@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { GroupSidebar } from './GroupSidebar';
 import { theme } from '../../../../styles/Theme';
 import { BlueButtonText } from '../../../../components/Button/BlueButton';
+import MemberCard from './MemberCard';
 const initialGroups = [
   {
     id: '1',
@@ -90,30 +91,13 @@ export const GroupComponent: React.FC = () => {
             .filter((group) => group.id === selectedGroupId)
             .map((group) =>
               group.members.map((member, index) => (
-                <Card
+                <MemberCard
                   key={index}
-                  sx={{
-                    margin: theme.spacing(2),
-                    backgroundColor: theme.palette.secondary.main,
-                    color: theme.palette.secondary.contrastText,
-                    borderRadius: theme.shape.borderRadius, // Añadir esquinas redondeadas
-                  }}
-                >
-                  <CardHeader
-                    action={
-                      <IconButton
-                        sx={{
-                          color: theme.palette.secondary.contrastText,
-                        }}
-                        onClick={() => handleDeleteMember(group.id, index)}
-                      >
-                        <HighlightOffIcon />
-                      </IconButton>
-                    }
-                    title={member.name}
-                  />
-                  <CardMedia component="img" height="247" image={member.img} />
-                </Card>
+                  member={member}
+                  groupId={group.id}
+                  memberIndex={index}
+                  handleDeleteMember={handleDeleteMember}
+                />
               ))
             )}
         </Box>
