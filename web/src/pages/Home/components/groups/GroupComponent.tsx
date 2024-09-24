@@ -303,6 +303,7 @@ export const GroupComponent: React.FC = () => {
         groups={groups}
         onCreateGroup={handleCreateGroup}
         onSelectGroup={handleSelectGroup}
+        selectedGroupId={selectedGroupId}
       />
       <Box
         sx={{

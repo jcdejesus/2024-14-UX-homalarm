@@ -7,15 +7,16 @@ import { theme } from '../../styles/Theme';
 import { BlueDrawer } from '../../components/Drawer/Drawer';
 import { AlarmComponent } from './components/alarms/AlarmComponent';
 import { GroupComponent } from './components/groups/GroupComponent';
+import { v4 as uuidv4 } from 'uuid';
 
 const drawerList = [
   {
-    id: '1',
+    id: uuidv4(),
     text: 'Alarmas',
     icon: <AlarmIcon sx={{ color: theme.palette.secondary.contrastText }} />,
   },
   {
-    id: '2',
+    id: uuidv4(),
     text: 'Grupos',
     icon: <GroupsIcon sx={{ color: theme.palette.secondary.contrastText }} />,
   },
@@ -43,10 +44,11 @@ export const Home: React.FC = () => {
         id="home-sidebar"
         drawerList={drawerList}
         onItemClick={handleDrawerItemClick}
+        selectedId={selectedComponent}
       ></BlueDrawer>
       <Box sx={{ marginLeft: `${drawerWidth}px` }}>
-        {selectedComponent === '1' && <AlarmComponent />}
-        {selectedComponent === '2' && <GroupComponent />}
+        {selectedComponent === drawerList[0].id && <AlarmComponent />}
+        {selectedComponent === drawerList[1].id && <GroupComponent />}
       </Box>
     </Box>
   );
