@@ -51,7 +51,7 @@ export const InputText: React.FC<InputTextProps> = ({
     rowGap: '',
     alignItems: '',
     justifyContent: '',
-    marginBottom: '',
+    marginBottom: '2rem',
   };
 
   if (direction == 'Row') {
@@ -59,7 +59,6 @@ export const InputText: React.FC<InputTextProps> = ({
     boxStyle.columnGap = '12px';
     boxStyle.alignItems = 'center';
     boxStyle.justifyContent = 'space-between';
-    boxStyle.marginBottom = '2rem';
   } else {
     boxStyle.flexDirection = 'column';
     boxStyle.rowGap = '12px';

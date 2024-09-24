@@ -2,6 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { Texture } from '../../../../components/CardChip/CardChip';
 import { AlarmCard } from './AlarmCard';
+import { YellowButtonText } from '../../../../components/Button/YellowButton';
 
 const alarms = [
   {

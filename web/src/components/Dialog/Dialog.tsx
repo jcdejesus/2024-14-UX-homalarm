@@ -47,7 +47,7 @@ export const CustomDialog: React.FC<CustomDialogProps> = ({
         >
           {title}
         </DialogTitle>
-        <DialogContent>{content}</DialogContent>
+        <DialogContent sx={{paddingBottom: 0}} >{content}</DialogContent>
         <DialogActions
           sx={{
             backgroundColor: theme.palette.secondary.main,
