@@ -11,6 +11,8 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { theme } from '../../styles/Theme';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 
 interface DrawerProps {
   id: string;
@@ -25,6 +27,7 @@ interface DrawerProps {
   };
   onItemClick: (text: string) => void;
   selectedId: string
+  shouldShowLogOut?: boolean
 }
 
 const DrawerList: React.FC<{
@@ -35,8 +38,11 @@ const DrawerList: React.FC<{
     onButtonClick: () => void;
   };
   selectedId: string;
-}> = ({ drawerList, onItemClick, buttonAction, selectedId }) => {
+  shouldShowLogOut?: boolean
+}> = ({ drawerList, onItemClick, buttonAction, selectedId, shouldShowLogOut }) => {
   const [selectedItem, setSelectedItem] = useState<string>(selectedId);
+
+  const navigate = useNavigate();
 
   const handleItemClick = (id: string) => {
     setSelectedItem(id);
@@ -87,6 +93,23 @@ const DrawerList: React.FC<{
           </>
         ))}
       </List>
+      {shouldShowLogOut &&(<Box sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
+        <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
+        <ListItem disablePadding 
+        sx={{
+          color: theme.palette.secondary.contrastText,
+        }}>
+          <ListItemButton onClick={() => navigate('/')}>
+            <ListItemIcon>
+              <LogoutIcon sx={{ color: theme.palette.secondary.contrastText }} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Log Out"
+              primaryTypographyProps={{ fontWeight: 'bold' }}
+            />
+          </ListItemButton>
+        </ListItem>
+      </Box>)}
     </Box>
   );
 };
@@ -108,6 +131,7 @@ export const BlueDrawer: React.FC<DrawerProps> = (props) => {
         onItemClick={props.onItemClick}
         buttonAction={props.buttonAction}
         selectedId={props.selectedId}
+        shouldShowLogOut={props.shouldShowLogOut}
       />
     </StyledDrawer>
   );

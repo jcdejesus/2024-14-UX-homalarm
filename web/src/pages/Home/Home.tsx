@@ -45,6 +45,7 @@ export const Home: React.FC = () => {
         drawerList={drawerList}
         onItemClick={handleDrawerItemClick}
         selectedId={selectedComponent}
+        shouldShowLogOut={true}
       ></BlueDrawer>
       <Box sx={{ marginLeft: `${drawerWidth}px` }}>
         {selectedComponent === drawerList[0].id && <AlarmComponent />}
