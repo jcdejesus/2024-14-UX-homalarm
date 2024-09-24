@@ -30,6 +30,20 @@ const initialGroups = [
     ],
   },
 ];
+
+const sampleNames = [
+  'Alice',
+  'Bob',
+  'Charlie',
+  'David',
+  'Eve',
+  'Frank',
+  'Grace',
+  'Hannah',
+  'Ivy',
+  'Jack',
+];
+
 const drawerWidth = 327;
 
 const renderCreateGroupDialog = (
@@ -69,7 +83,8 @@ const renderEditGroupDialog = (
   dialogOpen: boolean,
   setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
   handleDialogSubmit: () => void,
-  handleDeleteGroup: () => void
+  handleDeleteGroup: () => void,
+  handleAddUser: () => void
 ) => (
   <CustomDialog
     title="Editar grupo"
@@ -89,9 +104,37 @@ const renderEditGroupDialog = (
           color={theme.palette.common.black}
         />
         <Box sx={{ width: '100%' }}>
-          <YellowButtonText text="Agregar usuario" />
+          <YellowButtonText text="Agregar usuario" onClick={handleAddUser} />
           <RedButtonText text="Eliminar grupo" onClick={handleDeleteGroup} />
         </Box>
+      </Box>
+    }
+    actionText="Guardar"
+  />
+);
+
+const renderAddUserDialog = (
+  dialogOpen: boolean,
+  setDialogOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  handleDialogSubmit: () => void
+) => (
+  <CustomDialog
+    title="Agregar usuario"
+    open={dialogOpen}
+    setOpen={setDialogOpen}
+    handleSubmit={handleDialogSubmit}
+    content={
+      <Box sx={{ marginTop: theme.spacing(3) }}>
+        <InputText
+          direction="Column"
+          text="Nombre del usuario"
+          color={theme.palette.common.black}
+        />
+        <InputText
+          direction="Row"
+          text="Correo/telefono"
+          color={theme.palette.common.black}
+        />
       </Box>
     }
     actionText="Guardar"
@@ -101,7 +144,7 @@ const renderEditGroupDialog = (
 export const GroupComponent: React.FC = () => {
   const [groups, setGroups] = useState(initialGroups);
   const [groupCounter, setGroupCounter] = useState(initialGroups.length + 1);
-  const [selectedGroupId, setSelectedGroupId] = useState<string>('1');
+  const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [snackOpen, setSnackOpen] = React.useState(false);
   const [snacktype, setSnackType] = React.useState<{
@@ -121,6 +164,13 @@ export const GroupComponent: React.FC = () => {
     text: string;
     texture: Texture;
   }>({ text: 'Fallo eliminar grupo', texture: 'Error' });
+
+  const [addUserDialogOpen, setAddUserDialogOpen] = useState(false);
+  const [addUserSnackOpen, setAddUserSnackOpen] = React.useState(false);
+  const [addUserSnacktype, setAddUserSnackType] = React.useState<{
+    text: string;
+    texture: Texture;
+  }>({ text: 'Fallo agregar usuario', texture: 'Error' });
 
   const handleCreateGroup = () => {
     setDialogOpen(true);
@@ -185,14 +235,52 @@ export const GroupComponent: React.FC = () => {
     if (!error) {
       setGroups(groups.filter((group) => group.id !== selectedGroupId));
     }
-    setEditDialogOpen(false)
+    setSelectedGroupId(null);
+    setEditDialogOpen(false);
     setDeleteSnackOpen(true);
     setDeleteSnackType(
       error
         ? { text: 'Fallo eliminar grupo', texture: 'Error' }
         : { text: 'Grupo eliminado', texture: 'Success' }
     );
+  };
 
+  const handleAddUser = () => {
+    setAddUserDialogOpen(true);
+  };
+
+  const handleAddUserSubmit = () => {
+    const error = Math.random() > 0.5;
+    if (!error && selectedGroupId) {
+      const randomName =
+        sampleNames[Math.floor(Math.random() * sampleNames.length)];
+      setGroups(
+        groups.map((group) => {
+          if (group.id === selectedGroupId) {
+            return {
+              ...group,
+              members: [
+                ...group.members,
+                {
+                  id: uuidv4(),
+                  name: randomName,
+                  img: `https://picsum.photos/id/${Math.floor(Math.random() * 500)}/200`,
+                },
+              ],
+            };
+          }
+          return group;
+        })
+      );
+    }
+    setAddUserDialogOpen(false);
+    setEditDialogOpen(false);
+    setAddUserSnackOpen(true);
+    setAddUserSnackType(
+      error
+        ? { text: 'Fallo agregar usuario', texture: 'Error' }
+        : { text: 'Usuario agregado', texture: 'Success' }
+    );
   };
 
   const handleSnackClose = (
@@ -205,7 +293,8 @@ export const GroupComponent: React.FC = () => {
 
     setSnackOpen(false);
     setEditSnackOpen(false);
-    setDeleteSnackOpen(false)
+    setDeleteSnackOpen(false);
+    setAddUserSnackOpen(false);
   };
 
   return (
@@ -258,7 +347,8 @@ export const GroupComponent: React.FC = () => {
           editDialogOpen,
           setEditDialogOpen,
           handleEditDialogSubmit,
-          handleDeleteGroup
+          handleDeleteGroup,
+          handleAddUser
         )}
         <ToastBar
           text={editSnacktype.text}
@@ -273,6 +363,19 @@ export const GroupComponent: React.FC = () => {
           open={deleteSnackOpen}
           onClose={handleSnackClose}
         ></ToastBar>
+
+        {renderAddUserDialog(
+          addUserDialogOpen,
+          setAddUserDialogOpen,
+          handleAddUserSubmit
+        )}
+        <ToastBar
+          text={addUserSnacktype.text}
+          texture={addUserSnacktype.texture}
+          open={addUserSnackOpen}
+          onClose={handleSnackClose}
+        ></ToastBar>
+
         <Box
           sx={{
             display: 'flex',
@@ -280,11 +383,13 @@ export const GroupComponent: React.FC = () => {
             padding: theme.spacing(2),
           }}
         >
-          <BlueButtonText
-            text="Editar grupo"
-            icon={<EditIcon />}
-            onClick={handleEditDialogOpen}
-          />
+          {selectedGroupId && (
+            <BlueButtonText
+              text="Editar grupo"
+              icon={<EditIcon />}
+              onClick={handleEditDialogOpen}
+            />
+          )}
         </Box>
       </Box>
     </Box>
