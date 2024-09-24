@@ -14,8 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -25,6 +29,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,6 +47,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.homalarm.ui.theme.HomalarmTheme
 import com.example.homalarm.utils.Screen
 import androidx.navigation.compose.NavHost
@@ -85,6 +91,8 @@ fun ScaffoldBase(){
     )
 
     val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     Scaffold(
         topBar = {
@@ -106,9 +114,19 @@ fun ScaffoldBase(){
                 }
             )
         },
+        floatingActionButton = {
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentDestination = navBackStackEntry?.destination?.route
+            if (currentDestination === Screen.Creadas.route){
+                FloatingActionButton(
+                    onClick = { navigateToWithState(Screen.CrearAlarma.route, navController) },
+                ) {
+                    Icon(Icons.Filled.Add, "Floating action button.", tint = MaterialTheme.colorScheme.onPrimary)
+                }
+            }
+        },
         bottomBar = {
             BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
-
                     NavigationBar(
                         containerColor =MaterialTheme.colorScheme.background
                     ) {
@@ -117,18 +135,17 @@ fun ScaffoldBase(){
                                 colors = NavigationBarItemDefaults.colors(
                                     selectedIconColor = MaterialTheme.colorScheme.primary,
                                     unselectedIconColor = MaterialTheme.colorScheme.secondary,
-                                    indicatorColor = MaterialTheme.colorScheme.primary,
+                                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
                                     unselectedTextColor = MaterialTheme.colorScheme.onPrimary
                                 ),
-                                /* selected = currentDestination?.hierarchy?.any {
+                                selected = currentDestination?.hierarchy?.any {
                                     it.route == screen.route
-                                } == true, */
-                                selected = true,
+                                } == true,
                                 label = {
                                     Text(text = screen.label, color = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.semantics { this.contentDescription = screen.contentDescription ?: "" })
                                 },
                                 onClick = {
-                                    // navigateToWithState(screen.route, innerNavController)
+                                    navigateToWithState(screen.route, navController)
                                 },
                                 alwaysShowLabel = true,
                                 icon = {
@@ -153,6 +170,36 @@ fun ScaffoldBase(){
             composable(Screen.Creadas.route){
                 Box(modifier = Modifier.padding((innerPadding))){
                     AlarmasCreadas(navigateTo = { route: String ->
+                        navigateToWithState(
+                            route,
+                            navController
+                        )
+                    })
+                }
+            }
+            composable(Screen.Enviadas.route){
+                Box(modifier = Modifier.padding((innerPadding))){
+                    AlarmasCompartidas(navigateTo = { route: String ->
+                        navigateToWithState(
+                            route,
+                            navController
+                        )
+                    })
+                }
+            }
+            composable(Screen.Recibidas.route){
+                Box(modifier = Modifier.padding((innerPadding))){
+                    AlarmasRecibidas(navigateTo = { route: String ->
+                        navigateToWithState(
+                            route,
+                            navController
+                        )
+                    })
+                }
+            }
+            composable(Screen.CrearAlarma.route){
+                Box(modifier = Modifier.padding((innerPadding))){
+                    CrearAlarma(navigateTo = { route: String ->
                         navigateToWithState(
                             route,
                             navController
