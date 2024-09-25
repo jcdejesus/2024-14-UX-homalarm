@@ -1,5 +1,6 @@
 package com.example.homalarm
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,10 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.homalarm.utils.generarLista
 import com.example.homalarm.utils.verticalGradient
 
 @Composable
-fun EditarAlarma(
+fun EditarAlarmaRecibida(
     navigateTo: (String) -> Unit?
 ) {
     Box(
@@ -48,7 +50,7 @@ fun EditarAlarma(
                     .height(300.dp)
                     .wrapContentHeight(align = Alignment.CenterVertically)
             ) {
-                Text( text= stringResource(R.string.hora_placeholder), modifier = Modifier.fillMaxWidth().height(56.dp).wrapContentHeight(align = Alignment.CenterVertically), textAlign = TextAlign.Center,  style = MaterialTheme.typography.titleLarge)
+                Text( text="12:00 pm", modifier = Modifier.fillMaxWidth().height(56.dp).wrapContentHeight(align = Alignment.CenterVertically), textAlign = TextAlign.Center,  style = MaterialTheme.typography.titleLarge)
             }
 
             Column(
@@ -68,6 +70,8 @@ fun EditarAlarma(
                 AlarmaOpcionComponente(stringResource(R.string.sonido_label), stringResource(R.string.sonido_value))
                 SeparadorComponente()
                 AlarmaOpcionSwitchComponente(stringResource(R.string.vibracion_label), stringResource(R.string.vibracion_value))
+                SeparadorComponente()
+                AlarmaOpcionComponente(stringResource(R.string.enviado_por_label), stringResource(R.string.enviado_value))
             }
         }
     }

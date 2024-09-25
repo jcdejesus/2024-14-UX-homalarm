@@ -9,5 +9,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SeparadorComponente() {
-    HorizontalDivider(thickness = 1.dp, modifier = Modifier.padding(vertical = UiPadding.medium), color = MaterialTheme.colorScheme.outline)
+    HorizontalDivider(thickness = 1.dp,
+        modifier = Modifier.padding(vertical = UiPadding.medium),
+        color = MaterialTheme.colorScheme.outline)
 }

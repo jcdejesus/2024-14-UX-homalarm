@@ -1,5 +1,6 @@
 package com.example.homalarm
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,16 +15,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AlarmaComponente() {
-    Row(modifier = Modifier.fillMaxWidth().height(96.dp)){
+fun AlarmaComponente(navigateTo :() -> Unit?) {
+    Row(modifier = Modifier.fillMaxWidth().height(96.dp).clickable(onClick = { navigateTo() }) ){
         Column(modifier = Modifier.fillMaxWidth()){
             Row(modifier = Modifier.fillMaxWidth()){
                 Row(modifier = Modifier.weight(2f)){
-                    Text(text = "12:00 pm", style = MaterialTheme.typography.titleLarge)
+                    Text(text = stringResource(R.string.hora_placeholder),
+                        style = MaterialTheme.typography.titleLarge)
                 }
                 Row(){
                     var checked by remember { mutableStateOf(true) }
@@ -44,7 +47,10 @@ fun AlarmaComponente() {
                 }
             }
             Row(modifier = Modifier.fillMaxWidth()){
-                Text(text = "lun - mar - mier", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Right)
+                Text(text = stringResource(R.string.repeticion_placeholder),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Right)
             }
         }
     }

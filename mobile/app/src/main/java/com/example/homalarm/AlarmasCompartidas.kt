@@ -10,12 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
+import com.example.homalarm.utils.Screen
 import com.example.homalarm.utils.generarLista
 import com.example.homalarm.utils.verticalGradient
 
@@ -24,7 +22,7 @@ import com.example.homalarm.utils.verticalGradient
 fun AlarmasCompartidas(
     navigateTo: (String) -> Unit
 ) {
-    val alarmas = generarLista(1)
+    val alarmas = generarLista(5)
 
     Box(
         modifier = Modifier
@@ -49,7 +47,7 @@ fun AlarmasCompartidas(
                     .verticalScroll(rememberScrollState())
             ) {
                 alarmas.forEach { index ->
-                    AlarmaComponente()
+                    AlarmaComponente { navigateTo(Screen.EditarAlarmaCompartida.route) }
                     SeparadorComponente()
                 }
             }

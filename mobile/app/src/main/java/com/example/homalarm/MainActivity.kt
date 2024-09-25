@@ -4,11 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,23 +25,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.homalarm.ui.theme.HomalarmTheme
@@ -96,32 +84,50 @@ fun ScaffoldBase(){
 
     Scaffold(
         topBar = {
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentDestination = navBackStackEntry?.destination?.route
             TopAppBar(
                 colors = topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary,
                 ),
                 title = {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentDestination = navBackStackEntry?.destination?.route
                     val title = when(currentDestination) {
                         Screen.EditarAlarmaCompartida.route -> Screen.EditarAlarmaCompartida.label
                         Screen.EditarAlarma.route -> Screen.EditarAlarma.label
                         Screen.EditarAlarmaRecibida.route -> Screen.EditarAlarmaRecibida.label
+                        Screen.CrearAlarma.route -> Screen.CrearAlarma.contentDescription
                         else -> stringResource(R.string.top_bar_title)
                     }
                     title?.let { Text(it,modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, style = MaterialTheme.typography.titleMedium) }
+                },
+                actions = {
+                    if (currentDestination === Screen.CrearAlarma.alternativeRoute){
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {  navigateToWithState(Screen.Creadas.route, navController)   })
+                    }
+                    if (currentDestination === Screen.CrearAlarma.route){
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {  navigateToWithState(Screen.Creadas.route, navController)   })
+                    }
+                    if (currentDestination === Screen.EditarAlarma.route){
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {   navigateToWithState(Screen.Creadas.route, navController)    })
+                    }
+                    if (currentDestination === Screen.EditarAlarmaCompartida.route){
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {   navigateToWithState(Screen.Enviadas.route, navController)    })
+                    }
+                    if (currentDestination === Screen.EditarAlarmaRecibida.route){
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {   navigateToWithState(Screen.Recibidas.route, navController)   })
+                    }
                 }
             )
         },
         floatingActionButton = {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination?.route
-            if (currentDestination === Screen.Creadas.route){
+            if (currentDestination === Screen.Creadas.route || currentDestination === Screen.Creadas.alternativeRoute){
                 FloatingActionButton(
                     onClick = { navigateToWithState(Screen.CrearAlarma.route, navController) },
                 ) {
-                    Icon(Icons.Filled.Add, "Floating action button.", tint = MaterialTheme.colorScheme.onPrimary)
+                    Icon(Icons.Filled.Add, "", tint = MaterialTheme.colorScheme.onPrimary)
                 }
             }
         },
@@ -139,13 +145,19 @@ fun ScaffoldBase(){
                                     unselectedTextColor = MaterialTheme.colorScheme.onPrimary
                                 ),
                                 selected = currentDestination?.hierarchy?.any {
-                                    it.route == screen.route
+                                    it.route == screen.route || (it.route == Screen.Creadas.alternativeRoute && it.route == screen.alternativeRoute)
                                 } == true,
                                 label = {
                                     Text(text = screen.label, color = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.semantics { this.contentDescription = screen.contentDescription ?: "" })
                                 },
                                 onClick = {
-                                    navigateToWithState(screen.route, navController)
+                                    if (screen.alternativeRoute != null){
+                                        navigateToWithState(screen.alternativeRoute, navController)
+                                    }
+                                    else if (screen.route != null){
+                                        navigateToWithState(screen.route, navController)
+                                    }
+
                                 },
                                 alwaysShowLabel = true,
                                 icon = {
@@ -166,7 +178,7 @@ fun ScaffoldBase(){
     ){
         innerPadding ->
         // A surface container using the 'background' color from the theme
-        NavHost(navController = navController, startDestination = Screen.Creadas.route) {
+        NavHost(navController = navController, startDestination = Screen.Creadas.alternativeRoute.toString()) {
             composable(Screen.Creadas.route){
                 Box(modifier = Modifier.padding((innerPadding))){
                     AlarmasCreadas(navigateTo = { route: String ->
@@ -205,6 +217,41 @@ fun ScaffoldBase(){
                             navController
                         )
                     })
+                }
+            }
+            composable(Screen.EditarAlarma.route){
+                Box(modifier = Modifier.padding((innerPadding))){
+                    EditarAlarma(navigateTo = { route: String ->
+                        navigateToWithState(
+                            route,
+                            navController
+                        )
+                    })
+                }
+            }
+            composable(Screen.EditarAlarmaCompartida.route){
+                Box(modifier = Modifier.padding((innerPadding))){
+                    EditarAlarmaComaprtida(navigateTo = { route: String ->
+                        navigateToWithState(
+                            route,
+                            navController
+                        )
+                    })
+                }
+            }
+            composable(Screen.EditarAlarmaRecibida.route){
+                Box(modifier = Modifier.padding((innerPadding))){
+                    EditarAlarmaRecibida(navigateTo = { route: String ->
+                        navigateToWithState(
+                            route,
+                            navController
+                        )
+                    })
+                }
+            }
+            composable(Screen.CrearAlarmaNoDatos.route){
+                Box(modifier = Modifier.padding((innerPadding))){
+                    AlarmasCreadasNoDatos()
                 }
             }
         }

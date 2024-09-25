@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.example.homalarm.utils.verticalGradient
 
 @Composable
-fun EditarAlarma(
+fun EditarAlarmaComaprtida(
     navigateTo: (String) -> Unit?
 ) {
     Box(
@@ -68,6 +68,8 @@ fun EditarAlarma(
                 AlarmaOpcionComponente(stringResource(R.string.sonido_label), stringResource(R.string.sonido_value))
                 SeparadorComponente()
                 AlarmaOpcionSwitchComponente(stringResource(R.string.vibracion_label), stringResource(R.string.vibracion_value))
+                SeparadorComponente()
+                AlarmaOpcionComponente(stringResource(R.string.compartido_label), stringResource(R.string.compartido_value))
             }
         }
     }

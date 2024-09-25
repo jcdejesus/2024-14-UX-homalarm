@@ -3,19 +3,15 @@ package com.example.homalarm.utils
 import com.example.homalarm.R
 
 
-sealed class Screen(val route: String, val label: String, val icon: Int?, val contentDescription: String?) {
-    data object Creadas : Screen("AlarmasCreadas", "Creadas", R.drawable.alarm, "Alarmas Creadas")
-    data object Enviadas : Screen("AlarmasEnviadas", "Enviadas", R.drawable.sent, "Alarmas Enviadas")
-    data object Recibidas : Screen("AlarmasRecibidas", "Recibidas", R.drawable.received, "Alarmas Recibidas")
-    data object CrearAlarma : Screen("CrearAlarma", "Crear Alarma", R.drawable.received, "Crear Alarma")
-    data object EditarAlarma : Screen("EditarAlarma", "Editar Alarma", R.drawable.received, "Editar Alarma")
-    data object EditarAlarmaCompartida : Screen("EditarAlarmaCompartida", "Editar Alarma Compartida", R.drawable.received, "Editar Alarma Compartida")
-    data object EditarAlarmaRecibida : Screen("EditarAlarmaRecibida", "Editar Alarma Recibida", R.drawable.received, "Editar Alarma Recibida")
+sealed class Screen(val route: String, val label: String, val icon: Int?, val contentDescription: String?, val alternativeRoute: String?) {
+    data object Creadas : Screen("AlarmasCreadas", "Creadas", R.drawable.alarm, "ALARMAS CREADAS", "CrearAlarmaNoDatos")
+    data object Enviadas : Screen("AlarmasEnviadas", "Enviadas", R.drawable.sent, "ALARMAS COMPARTIDAS", null)
+    data object Recibidas : Screen("AlarmasRecibidas", "Recibidas", R.drawable.received, "ALARMAS RECIBIDAS", null)
+    data object CrearAlarma : Screen("CrearAlarma", "Crear Alarma", R.drawable.received, "CREAR ALARMA", null)
 
-    /* data object CollectorDetail : Screen("collectors/{collectorId}", "ColeccionistaDetalle", null, null)
-    data object ArtistDetail : Screen("artists/{artistId}", "ArtistaDetalle", null, null)
-    data object AlbumDetail : Screen("albums/{albumId}", "AlbumDetalle", null, null)
-    data object SongList : Screen("{albumId}/songs", label = "SongsList", icon = null, null)
-    data object AddSong : Screen("{albumId}/songs/add", label = "AddSong", icon = null, null)
-    data object AddAlbum : Screen("albums/add", label = "AddAlbum", icon = R.drawable.white_pencil, null) */
+    data object CrearAlarmaNoDatos : Screen("CrearAlarmaNoDatos", "Crear Alarma No Datos", null, null, null)
+
+    data object EditarAlarma : Screen("EditarAlarma", "EDITAR ALARMA", R.drawable.received, "EDITAR ALARMA",null)
+    data object EditarAlarmaCompartida : Screen("EditarAlarmaCompartida", "EDITAR ALARMA", R.drawable.received, "EDITAR ALARMA COMPARTIDA", null)
+    data object EditarAlarmaRecibida : Screen("EditarAlarmaRecibida", "EDITAR ALARMA", R.drawable.received, "EDITAR ALARMA RECIBIDA",null)
 }

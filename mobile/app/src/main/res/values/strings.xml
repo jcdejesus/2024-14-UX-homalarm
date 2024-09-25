@@ -1,4 +1,26 @@
 <resources>
     <string name="app_name">Homalarm</string>
     <string name="top_bar_title">HOMALARM</string>
+    <string name="sin_alarmas_texto">No tienes alarmas pero puedes crear una al pulsar el botón derecho</string>
+    <string name="guardar_botton_texto">Guardar</string>
+    <string name="repeticion_placeholder">lun - mar - mier</string>
+    <string name="hora_placeholder">12:00 pm</string>
+    <string name="repetir_label">Repetir: </string>
+    <string name="nota_label">Nota: </string>
+    <string name="sonido_label">Sonido: </string>
+    <string name="vibracion_label">Vibración: </string>
+    <string name="compartido_label">Compartido con: </string>
+    <string name="enviado_por_label">Enviado por: </string>
+
+    <string name="repetir_placeholder">Nunca</string>
+    <string name="nota_placeholder">Algo para recordar...</string>
+    <string name="sonido_placeholder">Sin sonido</string>
+    <string name="vibracion_placeholder">Apagado</string>
+
+    <string name="repetir_value">Todos los dias</string>
+    <string name="nota_value">Sacar el pollo del refri cariño...</string>
+    <string name="sonido_value">Birds</string>
+    <string name="vibracion_value">Encendido</string>
+    <string name="compartido_value">Arnoldo</string>
+    <string name="enviado_value">Arnoldo</string>
 </resources>
