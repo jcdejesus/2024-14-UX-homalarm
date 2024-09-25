@@ -23,4 +23,7 @@
     <string name="vibracion_value">Encendido</string>
     <string name="compartido_value">Arnoldo</string>
     <string name="enviado_value">Arnoldo</string>
+
+    <string name="crear_alarma_mensaje_value">Alarma ha sido creada.</string>
+    <string name="actualizar_alarma_mensaje_value">Alarma ha sido actualizada.</string>
 </resources>

@@ -11,22 +11,31 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -42,6 +51,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +93,22 @@ fun ScaffoldBase(){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val crearAlarmaMensaje = stringResource(R.string.crear_alarma_mensaje_value);
+    val actualizarAlarmaMensaje = stringResource(R.string.actualizar_alarma_mensaje_value);
+
     Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState){
+                Snackbar(
+                    snackbarData = it,
+                    containerColor = MaterialTheme.colorScheme.tertiary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+        },
         topBar = {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination?.route
@@ -101,21 +127,75 @@ fun ScaffoldBase(){
                     }
                     title?.let { Text(it,modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, style = MaterialTheme.typography.titleMedium) }
                 },
+                navigationIcon = {
+                    if (currentDestination === Screen.CrearAlarma.route){
+                        IconButton(onClick = { navigateToWithState(Screen.Creadas.alternativeRoute.toString(), navController) }) {
+                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = "",
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
+                        }
+                    }
+                    if (currentDestination === Screen.EditarAlarma.route){
+                        IconButton(onClick = { navigateToWithState(Screen.Creadas.route, navController) }) {
+                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "",
+                                tint = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
+                    if (currentDestination === Screen.EditarAlarmaCompartida.route){
+                    IconButton(onClick = { navigateToWithState(Screen.Enviadas.route, navController) }) {
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                        }
+                    }
+                    if (currentDestination === Screen.EditarAlarmaRecibida.route){
+                        IconButton(onClick = { navigateToWithState(Screen.Recibidas.route, navController) }) {
+                            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "",
+                                tint = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
+                },
                 actions = {
                     if (currentDestination === Screen.CrearAlarma.alternativeRoute){
                         Button(stringResource(R.string.guardar_botton_texto), onClick = {  navigateToWithState(Screen.Creadas.route, navController)   })
                     }
                     if (currentDestination === Screen.CrearAlarma.route){
-                        Button(stringResource(R.string.guardar_botton_texto), onClick = {  navigateToWithState(Screen.Creadas.route, navController)   })
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {
+                            navigateToWithState(Screen.Creadas.route, navController)
+                            scope.launch {
+                                snackbarHostState.showSnackbar(crearAlarmaMensaje, withDismissAction = true)
+                            }
+                        })
                     }
                     if (currentDestination === Screen.EditarAlarma.route){
-                        Button(stringResource(R.string.guardar_botton_texto), onClick = {   navigateToWithState(Screen.Creadas.route, navController)    })
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {
+                            navigateToWithState(Screen.Creadas.route, navController)
+                            scope.launch {
+                                snackbarHostState.showSnackbar(actualizarAlarmaMensaje, withDismissAction = true)
+                            }
+                        })
                     }
                     if (currentDestination === Screen.EditarAlarmaCompartida.route){
-                        Button(stringResource(R.string.guardar_botton_texto), onClick = {   navigateToWithState(Screen.Enviadas.route, navController)    })
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {
+                            navigateToWithState(Screen.Enviadas.route, navController)
+                            scope.launch {
+                                snackbarHostState.showSnackbar(actualizarAlarmaMensaje, withDismissAction = true)
+                            }
+                        })
                     }
                     if (currentDestination === Screen.EditarAlarmaRecibida.route){
-                        Button(stringResource(R.string.guardar_botton_texto), onClick = {   navigateToWithState(Screen.Recibidas.route, navController)   })
+                        Button(stringResource(R.string.guardar_botton_texto), onClick = {
+                            navigateToWithState(Screen.Recibidas.route, navController)
+                            scope.launch {
+                                snackbarHostState.showSnackbar(actualizarAlarmaMensaje, withDismissAction = true)
+                            }
+                        })
                     }
                 }
             )
