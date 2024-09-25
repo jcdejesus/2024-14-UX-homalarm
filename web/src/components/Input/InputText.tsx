@@ -22,7 +22,7 @@ export const InputText: React.FC<InputTextProps> = ({
       backgroundColor: theme.palette.background.paper,
       border: '1px solid',
       borderColor: theme.palette.primary.main,
-      width: '100%',
+      width: direction == 'Column' ? '100%' : '340px',
       padding: `0 ${theme.spacing(4)}`,
       borderRadius: theme.shape.borderRadius,
       height: '48px',
@@ -65,7 +65,7 @@ export const InputText: React.FC<InputTextProps> = ({
   }
 
   return (
-    <Box component="div" sx={boxStyle}>
+    <Box id="input-div-id" component="div" sx={boxStyle}>
       <Label> {text} </Label>
       <Button />
     </Box>

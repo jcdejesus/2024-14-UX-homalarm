@@ -126,12 +126,12 @@ const renderAddUserDialog = (
     content={
       <Box sx={{ marginTop: theme.spacing(3) }}>
         <InputText
-          direction="Column"
-          text="Nombre del usuario"
+          direction="Row"
+          text="Nombre "
           color={theme.palette.common.black}
         />
         <InputText
-          direction="Row"
+          direction="Column"
           text="Correo/telefono"
           color={theme.palette.common.black}
         />
