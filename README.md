@@ -1,11 +1,26 @@
 # HOMALARM
 
 ### Estructura
-- Web
-- Mobile
+- Web - Maquetación Web
+- Mobile - Maquetación Mobile para OS Android
 - README.md
 
-### Despliegue y uso
+### Despliegue
+
+#### Maquetación mobile.
+1. El desarrollo de la maquetación mobile se encuentra en la rama: **feature/maquetado-mobile**
+2. El APK de la aplicación mobile se encuentra en la rama anteriormente nombrada, en el directorio **https://github.com/jcdejesus/2024-14-UX-homalarm/tree/feature/maquetado-mobile/mobile/dist**
+3. El README de la maquetación mobile se encuentra en: **[https://github.com/jcdejesus/2024-14-UX-homalarm/blob/feature/maquetado-web/web/README.md](https://github.com/jcdejesus/2024-14-UX-homalarm/blob/feature/maquetado-mobile/mobile/README.md)**
+
+#### Maquetación web.
+1. El desarrollo de la maquetación web se encuentra en la rama: **feature/maquetado-web**
+2. Para correr la aplicación web, debe dirigirse a la rama mencionada, ir a la carpeta web y correr los siguientes comandos:
+* Instalar las dependencias: yarn install / npm run install
+* Ejecutar el servicio webpack: yarn build:dev
+* Si usted posee un entorno Docker, podrá usar el comando: **docker build -t homalarm:1.0 . && docker run -d -p 3000:3000 homalarm:1.0**
+3. El README de la maquetación web se encuentra en: **https://github.com/jcdejesus/2024-14-UX-homalarm/blob/feature/maquetado-web/web/README.md**
+
+
 
 ### Autores:
 - Cristian Camilo Pinzon hernandez – [cc.pinzonh1@uniandes.edu.co](mailto:cc.pinzonh1@uniandes.edu.co)
